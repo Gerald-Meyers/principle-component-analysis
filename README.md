@@ -15,8 +15,23 @@ The notable use of this project is to perform the PCA and save the PCA data to a
 
 https://en.wikipedia.org/wiki/Covariance_matrix
 
-The covariance matrix is defined from a 
+The covariance matrix is defined from the equation below.
 
 $$
-x^{y+A}=b
+Ax=y
+$$
+
+The matrix A represents the feature dataset which a ML model will be trained on.
+The matrix A can be expressed in terms of the mean, standard deviation, and a matrix $B$ which is the standardized data matrix, where each feature has a mean of 0 and a standard deviation of 1.
+$$
+A=\sigma\left({B+\mu}\right)\\
+\Rightarrow
+B=\frac{A-\mu}{\sigma}
+$$
+
+
+$$
+A=\frac{B+\mu}{\sigma}
+\Rightarrow
+Ax=\frac{B+\mu}{\sigma}x=y
 $$
