@@ -23,6 +23,7 @@ $$
 
 The matrix A represents the feature dataset which a ML model will be trained on.
 The matrix A can be expressed in terms of the mean, standard deviation, and a matrix $B$ which is the standardized data matrix, where each feature has a mean of 0 and a standard deviation of 1.
+
 $$
 A=\sigma\left({B+\mu}\right)\\
 \Rightarrow
