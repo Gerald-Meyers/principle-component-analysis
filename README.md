@@ -16,6 +16,7 @@ The notable use of this project is to perform the PCA and save the PCA data to a
 https://en.wikipedia.org/wiki/Covariance_matrix
 
 The covariance matrix is defined from a 
+
 $$
 x^{y+A}=b
 $$
