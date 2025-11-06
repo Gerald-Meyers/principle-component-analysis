@@ -1,4 +1,14 @@
-from numpy import array, mean, std
+from typing import Any, Callable, Iterable, Optional, Union
+
+from numpy import (array, asarray, average,  # float80,; float96,; float256,
+                   float16, float32, float64, float128, int_, mean, ndarray,
+                   random, std)
+from numpy.linalg import eig
+from numpy.typing import NDArray
+
+PythonScalars = (int, float)
+PythonScalar: type = Union[*PythonScalars]
+PythonArray = Iterable[PythonScalar]
 
 
 class PCA:
@@ -11,7 +21,24 @@ class PCA:
         self.transformed_dataset = array([])
 
     def fit(self):
-        ...
+        # 1. Calculate covariance matrix
+        cov_matrix = self._covariance_matrix()
+
+        # 2. Calculate eigenvalues and eigenvectors
+        eigenvalues, eigenvectors = eig(cov_matrix)
+
+        # 3. Sort eigenvectors by descending eigenvalues
+        # Transpose eigenvectors so they are rows
+        eigenvectors = eigenvectors.T
+        idxs = array(eigenvalues).argsort()[::-1]
+        eigenvalues = eigenvalues[idxs]
+        eigenvectors = eigenvectors[idxs]
+
+        # 4. Store the principal components and explained variance
+        self.component_vectors = eigenvectors
+
+        total_variance = sum(eigenvalues)
+        self.explained_variance = eigenvalues / total_variance
 
     def transform(self):
         ...
@@ -43,4 +70,13 @@ class PCA:
 
     def _covariance_matrix(self):
         normalized_dataset = self._normalize()
-        return normalized_dataset.T @ normalized_dataset return normalized_dataset.T @ normalized_dataset return normalized_dataset.T @ normalized_dataset
+        n_samples = normalized_dataset.shape[0]
+        return normalized_dataset.T @ normalized_dataset / (n_samples - 1)
+
+    def save_to_file(self, filename):
+        with open(filename, 'w') as f:
+            f.write(dataset)
+            f.write(component_vectors)
+            f.write(explained_variance)
+            f.write(transformed_dataset)
+            f.write(n_components)
